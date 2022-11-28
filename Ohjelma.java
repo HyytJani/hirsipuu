@@ -21,7 +21,9 @@ public class Ohjelma {
                 break;
             }  
         liittyma.kaynnista();}
+        
     }
+
 }
 
 

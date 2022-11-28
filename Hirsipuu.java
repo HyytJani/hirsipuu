@@ -12,28 +12,37 @@ public class Hirsipuu{
         this.vaaratkirjaimet=new ArrayList<>();
         tulostaja=System.console().writer();
     }
-   
-    public void tarkastaTulosta(String sana, String kirjain) { 
+    boolean oikeaArvaus=false;
+    boolean arvattujo=false;    
+    public void tarkastaTulosta(String sana, String kirjain) {
         int sanaOk=0;
-           
-        boolean oikeaArvaus=false;         
-        String[] osat=sana.split("");
+        String[] osat=sana.split(""); 
+        for(String c:this.kirjaimet) {
+            if(c.equals(kirjain)){
+                arvattujo=true;  }
+        }    
         for(int i2= 0; i2 < osat.length; i2++){
             if (osat[i2].equals(kirjain)){             
             oikeaArvaus=true; 
             i2=osat.length;             
         }else {            
             oikeaArvaus=false;            
-        }}  
-    if(oikeaArvaus==true){
+        }} 
+        if(oikeaArvaus==true && arvattujo==true){              
+            
+            System.out.println();
+            System.out.println( "Arvasit saman kirjaimen uudelleen");
+            System.out.println("Vääriä arvauksia "+vaaraArvaus+"/5");
+            tulostaja.println("Väärät arvaukset ovat:"+this.vaaratkirjaimet+", ");} 
+    if(oikeaArvaus==true && arvattujo==false){              
+            
         this.kirjaimet.add(kirjain);
         System.out.println();
         System.out.println( "Arvasit oikein!");
         System.out.println("Vääriä arvauksia "+vaaraArvaus+"/5");
+        tulostaja.println("Väärät arvaukset ovat:"+this.vaaratkirjaimet+", ");}
             
-               tulostaja.println("Väärät arvaukset ovat:"+this.vaaratkirjaimet+", ");}
-    
-    if(oikeaArvaus==false){
+    if(oikeaArvaus==false && arvattujo==false){
         
         this.vaaratkirjaimet.add(kirjain);
         vaaraArvaus++;
@@ -48,7 +57,8 @@ public class Hirsipuu{
         for(int a = 0; a < this.kirjaimet.size(); a++){
         if (osat[i].equals(this.kirjaimet.get(a))){
              kirjainOk=1;
-             sanaOk++;
+             if(arvattujo==false){
+             sanaOk++;}
         }}        
         if (kirjainOk==1){
         System.out.print(osat[i]); 
@@ -64,10 +74,11 @@ public class Hirsipuu{
             System.out.println(" \n Hävisit pelin!");
             System.out.println(" \n Sana oli "+sana);
             loppu=true;        
-}      
+}     
 System.out.println();
 oikeaArvaus=false;
-}
+arvattujo=false;
+} 
 public void nollaa(){
     loppu=false;
     this.kirjaimet=new ArrayList<>();
